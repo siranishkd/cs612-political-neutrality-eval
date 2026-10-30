@@ -8,13 +8,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Standard Directory Structure
-EXPERIMENT_A_DIR = REPO_ROOT / "01_experiment_a_baseline"
-EXPERIMENT_B_DIR = REPO_ROOT / "02_experiment_b_robustness"
-EXPERIMENT_C_DIR = REPO_ROOT / "03_experiment_c_sycophancy"
-EXPERIMENT_D_DIR = REPO_ROOT / "04_experiment_d_locality"
-PRISM_DIR = REPO_ROOT / "05_prism_defense"
+SYSTEM_C_DIR = REPO_ROOT / "system_c_sycophancy"
+EXPERIMENT_C_DIR = SYSTEM_C_DIR  # Backward-compatible alias
+PRISM_DIR = REPO_ROOT / "prism_defense"
 FIGURES_DIR = REPO_ROOT / "figures"
 DOCS_DIR = REPO_ROOT / "docs"
+
+# Legacy directory aliases
+EXPERIMENT_A_DIR = REPO_ROOT / "01_experiment_a_baseline"
+EXPERIMENT_B_DIR = REPO_ROOT / "02_experiment_b_robustness"
+EXPERIMENT_D_DIR = REPO_ROOT / "04_experiment_d_locality"
 
 # Standard Model Families & Supported Model Identifiers
 CANONICAL_MODELS = {

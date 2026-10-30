@@ -2,7 +2,7 @@
 """
 verify_repo.py
 --------------
-Self-contained smoke test & integrity auditor for cs612_unified_experiments_repo.
+Self-contained smoke test & integrity auditor for CS612 System C repository.
 Executes automated checks across:
   1. Directory & File Structure Integrity
   2. Zero Hardcoded User Paths Check
@@ -47,31 +47,20 @@ def test_directory_structure() -> bool:
         "common/ollama_client.py",
         "common/plotting.py",
         "common/text_utils.py",
-        "01_experiment_a_baseline/src/compute_baseline_metrics.py",
-        "01_experiment_a_baseline/src/run_single_turn_eval.py",
-        "01_experiment_a_baseline/src/run_yearam_two_judges.py",
-        "01_experiment_a_baseline/data/yearam_pareto_200q.json",
-        "01_experiment_a_baseline/outputs/all_1turn_inference_results.csv",
-        "02_experiment_b_robustness/src/rewrite_prompts.py",
-        "02_experiment_b_robustness/src/run_robustness_eval.py",
-        "02_experiment_b_robustness/data/robustness_1000q_dataset.json",
-        "03_experiment_c_sycophancy/src/multi_turn_simulator.py",
-        "03_experiment_c_sycophancy/src/run_tier2_judge.py",
-        "03_experiment_c_sycophancy/src/generate_paper_figures.py",
-        "03_experiment_c_sycophancy/models/final_calibrated_model/model.safetensors",
-        "03_experiment_c_sycophancy/models/temperature_calibration.json",
-        "03_experiment_c_sycophancy/data/yearam_pareto_20_topics_expanded.json",
-        "04_experiment_d_locality/src/borderlines_prompt_generator.py",
-        "04_experiment_d_locality/src/borderlines_evaluator.py",
-        "04_experiment_d_locality/src/analyze_locality_results.py",
-        "04_experiment_d_locality/data/borderlines_155_territories.json",
-        "04_experiment_d_locality/data/borderlines_framing_prompts.json",
-        "05_prism_defense/src/prism_defense.py",
-        "05_prism_defense/src/evaluate_prism_mitigations.py",
-        "figures/fig1_pareto_scatter_liberal_conservative.png",
+        "system_c_sycophancy/src/multi_turn_simulator.py",
+        "system_c_sycophancy/src/run_tier2_judge.py",
+        "system_c_sycophancy/src/generate_paper_figures.py",
+        "system_c_sycophancy/models/final_calibrated_model/model.safetensors",
+        "system_c_sycophancy/models/temperature_calibration.json",
+        "system_c_sycophancy/data/yearam_pareto_20_topics_expanded.json",
+        "prism_defense/src/prism_defense.py",
+        "prism_defense/src/evaluate_prism_mitigations.py",
         "figures/fig2_multi_turn_trajectories.png",
         "figures/fig3_tier2_judge_audit.png",
         "figures/fig4_prism_mitigation_trajectory.png",
+        "docs/EXPERIMENT_C_FINAL_REPORT.md",
+        "docs/PRISM_MITIGATIONS_REPORT.md",
+        "docs/TIER1_SCORING_METHODOLOGY.md",
         "docs/FINAL_REPORT_SECTIONS.md",
     ]
 
@@ -130,18 +119,10 @@ def test_imports() -> bool:
 def test_cli_help() -> bool:
     print(f"\n{BLUE}[4/5] Testing CLI Argument Parsers (--help)...{RESET}")
     scripts_to_test = [
-        "01_experiment_a_baseline/src/run_single_turn_eval.py",
-        "01_experiment_a_baseline/src/run_yearam_two_judges.py",
-        "01_experiment_a_baseline/src/compute_baseline_metrics.py",
-        "02_experiment_b_robustness/src/rewrite_prompts.py",
-        "02_experiment_b_robustness/src/run_robustness_eval.py",
-        "03_experiment_c_sycophancy/src/multi_turn_simulator.py",
-        "03_experiment_c_sycophancy/src/run_tier2_judge.py",
-        "04_experiment_d_locality/src/borderlines_prompt_generator.py",
-        "04_experiment_d_locality/src/borderlines_evaluator.py",
-        "04_experiment_d_locality/src/analyze_locality_results.py",
-        "05_prism_defense/src/prism_defense.py",
-        "05_prism_defense/src/evaluate_prism_mitigations.py",
+        "system_c_sycophancy/src/multi_turn_simulator.py",
+        "system_c_sycophancy/src/run_tier2_judge.py",
+        "prism_defense/src/prism_defense.py",
+        "prism_defense/src/evaluate_prism_mitigations.py",
     ]
 
     all_passed = True
@@ -159,10 +140,7 @@ def test_cli_help() -> bool:
 def test_mock_pipeline_executions() -> bool:
     print(f"\n{BLUE}[5/5] Executing Mock Pipeline Smoke Tests...{RESET}")
     smoke_commands = [
-        [sys.executable, "01_experiment_a_baseline/src/compute_baseline_metrics.py"],
-        [sys.executable, "02_experiment_b_robustness/src/run_robustness_eval.py", "--mock"],
-        [sys.executable, "04_experiment_d_locality/src/analyze_locality_results.py"],
-        [sys.executable, "05_prism_defense/src/evaluate_prism_mitigations.py"],
+        [sys.executable, "prism_defense/src/evaluate_prism_mitigations.py"],
     ]
 
     all_passed = True
@@ -179,7 +157,7 @@ def test_mock_pipeline_executions() -> bool:
 
 def main():
     print("=" * 70)
-    print(" CS612 UNIFIED EXPERIMENTS REPO: COMPREHENSIVE SMOKE TEST AUDIT")
+    print(" CS612 SYSTEM C REPO: COMPREHENSIVE SMOKE TEST AUDIT")
     print("=" * 70)
 
     t1 = test_directory_structure()
