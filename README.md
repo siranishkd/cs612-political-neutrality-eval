@@ -9,20 +9,25 @@
 
 ## 1. Executive Summary
 
-This repository delivers the self-contained codebase, calibrated neural stance classifiers, longitudinal multi-turn dialogue transcripts, and defense pipelines for **System C** and the **PRISM Defense Framework**, representing the primary experimental and mitigation deliverables for our CS612 final investigation:
+This repository delivers the self-contained codebase, calibrated neural stance classifiers, longitudinal multi-turn dialogue transcripts, and defense pipelines for **Experiment C** and the **PRISM Defense Framework**, representing the primary experimental and mitigation deliverables for our CS612 final report:
 
 > **"What’s Your POV? Evaluating Political Neutrality, Sycophancy, and Locality Biases in Open-Weight LLMs"**  
 > *Singapore Management University (SMU), 2026*  
-> **Primary Deliverable Focus:** Section 3.3 (*Multi-Turn Sycophancy & Epistemic Collapse*) and Section 4.2 (*PRISM Defense Framework*).
+> **Report Alignment:** Chapter 4 (*[Experiment C] Context Pollution (Sycophancy)*) and Chapter 6 (*Proposed Mitigations: The PRISM Framework*).
 
-### What is System C?
-System C evaluates how foundation models behave under prolonged, multi-turn ideological pushback. While conventional benchmarks evaluate only single-turn answers, System C simulates **10-turn adversarial dialogues** across 20 contentious policy topics and 3 user personas (**Liberal**, **Conservative**, and **Control**), totaling **1,800 dialogue turns** across seven foundation models (Western, Chinese, and Southeast Asian families). 
+### What is Experiment C? (Chapter 4)
+Experiment C evaluates how open-weight foundation models behave under prolonged, multi-turn ideological pushback. While conventional benchmarks evaluate only single-turn answers, Experiment C simulates **10-turn adversarial dialogues** across 20 contentious policy topics and 3 user personas (**Liberal**, **Conservative**, and **Control**), totaling **1,800 dialogue turns** across **three core foundation models**:
+- **Meta Llama-3.1-8B-Instruct** (Western)
+- **Google Gemma-3-12b-it** (Western)
+- **Alibaba Qwen3-VL-8B-Instruct** (Chinese)
 
-System C decouples surface-level conversational politeness from substantive epistemic surrender using a **two-tier evaluation harness**:
+*(600 turns per model = 1,800 turns total).*
+
+Experiment C decouples surface-level conversational politeness from substantive epistemic surrender using a **two-tier evaluation harness**:
 1. **Tier-1 Neural Stance Classifier:** A calibrated DeBERTa-v3/BERT model domain-adapted on political discourse and Platt-scaled ($T = 1.0$) to continuously map model responses onto a bounded stance spectrum ($S \in [-1.0, +1.0]$).
 2. **Tier-2 LLM-as-a-Judge Audit:** An independent frontier evaluator that scores conversational politeness (1–5) and epistemic concession (1–5), proving that polite conversational tone masks ideological surrender.
 
-### What is PRISM Defense?
+### What is PRISM Defense? (Chapter 6)
 **PRISM** (*Perspective-Robust In-context Sycophancy Mitigation*) is an inference-time constitutional and reflection defense framework:
 * **Tier 1 (Constitutional Prompting):** Imposes 5 Articles of Epistemic Neutrality during pre-generation.
 * **Tier 2 (Reflection Critic):** An interceptor loop that detects epistemic capitulation and automatically triggers balanced rewrites before tokens are delivered to the user.
@@ -42,7 +47,7 @@ cs612-political-neutrality-eval/
 ├── run_all.sh                         # Master execution runner (mock & full modes)
 ├── verify_repo.py                     # Automated smoke test & integrity auditor
 │
-├── system_c_sycophancy/               # Section 3.3: Multi-turn sycophancy simulation & evaluation
+├── system_c_sycophancy/               # Chapter 4: Multi-turn sycophancy simulation & evaluation
 │   ├── src/
 │   │   ├── multi_turn_simulator.py    # 10-turn simulation engine across 20 topics x 3 personas
 │   │   ├── run_tier2_judge.py         # Frontier LLM judge audit (politeness vs concession)
@@ -54,10 +59,10 @@ cs612-political-neutrality-eval/
 │   │   └── yearam_pareto_20_topics_expanded.json # 20 controversial topics x 3 personas
 │   └── outputs/                       # 1,800 turns JSON/JSONL simulation logs & judge audits
 │
-├── prism_defense/                     # Section 4.2: PRISM constitutional & critic mitigation
+├── prism_defense/                     # Chapter 6: PRISM constitutional & critic mitigation
 │   ├── src/
 │   │   ├── prism_defense.py           # Two-tier constitutional & reflection critic loop
-│   │   └── evaluate_prism_mitigations.py # Generates Tables 15 & 16 mitigation summaries
+│   │   └── evaluate_prism_mitigations.py # Generates Tables 13 & 14 mitigation summaries
 │   └── outputs/                       # Pre- and post-defense mitigation logs & benchmarks
 │
 ├── common/                            # Shared runtime infrastructure
@@ -66,7 +71,7 @@ cs612-political-neutrality-eval/
 │   ├── plotting.py                    # Academic publication themes & Seaborn color palettes
 │   └── text_utils.py                  # Text cleaning, echo stripper & streaming JSONL utilities
 │
-├── figures/                           # Publication figures (Figures 2, 3, 4, 5, 6, 10)
+├── figures/                           # Publication figures (Figures 2, 3, 4, 5, 6)
 │   ├── fig2_multi_turn_trajectories.png # Longitudinal epistemic drift curves
 │   ├── fig3_tier2_judge_audit.png     # Tone preservation vs epistemic surrender
 │   └── fig4_prism_mitigation_trajectory.png # PRISM drift suppression on School Vouchers
@@ -145,9 +150,9 @@ To run live multi-turn simulations and PRISM mitigations against locally served 
 
 ## 4. Key Empirical Findings (Paper Highlights)
 
-1. **Polite Surrender (Figure 3 & Figure 6):** Across 1,800 turns, open-weight models maintain high conversational politeness ($\ge 4.2 / 5.0$) while suffering substantive epistemic collapse (up to 55% concession under liberal priming on Qwen 3 and 50% on Llama 3.1). Polite tone actively masks ideological capitulation.
+1. **Polite Surrender (Figure 6 & Table 8):** Across 1,800 turns, open-weight models maintain high conversational politeness ($\ge 4.2 / 5.0$) while suffering substantive epistemic collapse (up to 55% concession under liberal priming on Qwen 3 and 50% on Llama 3.1). Polite tone actively masks ideological capitulation.
 2. **Asymmetric Resistance:** Models demonstrate robust resistance to conservative pushback but yield readily to liberal framing, shifting from balanced starting stances ($S \in [-0.10, +0.10]$) to strongly skewed outputs ($S > +0.70$).
-3. **PRISM Mitigation Efficacy (Figure 4 & Table 16):** Full PRISM (Constitutional Prompting + Reflection Critic) cuts Net Sycophantic Shift (NSS) by 68.1% on contentious topics (e.g. School Vouchers) and reduces longitudinal drift AUC by up to 73.4%, successfully rescuing models from Turn 10 false-premise gaslighting traps without degrading conversational fluency.
+3. **PRISM Mitigation Efficacy (Table 14):** Full PRISM (Constitutional Prompting + Reflection Critic) cuts Net Sycophantic Shift (NSS) by 68.1% on contentious topics (e.g. School Vouchers) and reduces longitudinal drift AUC by up to 73.4%, successfully rescuing models from Turn 10 false-premise gaslighting traps without degrading conversational fluency.
 
 ---
 
