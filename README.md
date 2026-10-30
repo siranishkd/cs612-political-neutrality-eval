@@ -14,7 +14,12 @@ This repository provides the unified, fully reproducible codebase, datasets, mod
 > **"What’s Your POV? Evaluating Political Neutrality, Sycophancy, and Locality Biases in Open-Weight LLMs"**  
 > *Singapore Management University (SMU), 2026*
 
-We rigorously benchmark seven open-weight foundation models (7B–12B parameters) spanning three global geopolitical regions—**Western**, **Chinese**, and **Southeast Asian (SEA)**—across single-turn baselines, phrasing perturbations, longitudinal adversarial sycophancy, and territorial sovereignty disputes. Furthermore, we implement and validate **PRISM** (*Perspective-Robust In-context Sycophancy Mitigation*), an inference-time constitutional and reflection defense framework that suppresses ideological surrender without degrading conversational politeness.
+> [!NOTE]
+> **Primary Deliverable Focus:** This repository specifically delivers the complete, self-contained implementation, datasets, calibrated neural stance classifiers, and evaluation harness for:
+> 1. **Section 3.3 (Experiment C):** Multi-Turn Adversarial Sycophancy & Epistemic Collapse Tracking (1,800 turns across 7 foundation models).
+> 2. **Section 4.2 (PRISM Defense):** Two-Tier Constitutional & Reflection Critic Mitigation Framework.
+>
+> For reproducibility and comprehensive team integration, the shared utilities (`common/`), publication figures (`figures/`), technical documentation (`docs/`), and unified runners (`run_all.sh`, Docker) are bundled to reproduce both our individual modules and the end-to-end research suite.
 
 ### Evaluated Model Matrix
 
@@ -68,23 +73,46 @@ cs612_unified_experiments_repo/
 │   ├── src/                           # prism_defense.py & mitigation evaluator
 │   └── outputs/                       # Pre- and post-defense mitigation logs
 ├── figures/                           # Publication-ready figures (Figures 1-10)
-└── docs/                              # Final report docx, executive summaries & rubrics
+└── docs/                              # Technical specifications, rubrics & reports
 ```
+
+### 2.1 Core Utilities, Documentation & Figures
+
+* **`common/` (Shared Runtime Infrastructure):**
+  - [`config.py`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/common/config.py): Centralized environment configurations, model family definitions, temperature calibration thresholds, and path resolvers.
+  - [`ollama_client.py`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/common/ollama_client.py): Robust local Ollama and OpenRouter inference client featuring retry loops, backoff, and graceful fallback.
+  - [`plotting.py`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/common/plotting.py): Academic publication styling, matplotlib color themes, and export formatting.
+  - [`text_utils.py`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/common/text_utils.py): Text sanitization, conversational echo stripping, and streaming JSONL readers/writers.
+
+* **`docs/` (Formal Methodology & Technical Reports):**
+  - [`EXPERIMENT_C_FINAL_REPORT.md`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/docs/EXPERIMENT_C_FINAL_REPORT.md): Exhaustive scientific report for Experiment C (1,800-turn sycophancy simulation and epistemic drift findings).
+  - [`PRISM_MITIGATIONS_REPORT.md`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/docs/PRISM_MITIGATIONS_REPORT.md): Comprehensive specification of the PRISM constitutional defense and empirical ablation tables.
+  - [`TIER1_SCORING_METHODOLOGY.md`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/docs/TIER1_SCORING_METHODOLOGY.md): Neural stance calibration mathematical formulation, Platt scaling, and neutral band thresholds.
+  - [`EVALUATOR_TRIANGULATION_REPORT.md`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/docs/EVALUATOR_TRIANGULATION_REPORT.md): Triangulation between neural stance scoring and frontier LLM-as-a-Judge audits.
+  - [`FINAL_REPORT_SECTIONS.md`](file:///Users/anishdobz/Library/CloudStorage/OneDrive2-SingaporeManagementUniversity/2_smu_pg/4_1_ai_system_evaluation_cs612/cs612_unified_experiments_repo/docs/FINAL_REPORT_SECTIONS.md): Consolidated academic write-ups and report sections.
+
+* **`figures/` (Publication-Grade Visualizations):**
+  - High-resolution (300 DPI) publication figures (Figures 1–10) dynamically generated from raw simulation logs by `generate_paper_figures.py`. Highlights include Figure 2 (longitudinal epistemic drift trajectories), Figure 3 (Tier-2 judge correlation), Figure 4 (PRISM defense drift suppression), Figure 5 (concession rate heatmaps), and Figure 6 (conversational politeness vs. epistemic surrender decoupling).
 
 ---
 
 ## 3. Quickstart & Verification
 
 ### 3.1 One-Command Docker Reproduction (Recommended)
-You can build and run the entire evaluation suite in an isolated, fully reproducible container without needing local Python setup:
+You can build and run the evaluation suite in an isolated, fully reproducible container without needing local Python or GPU setup:
 
 ```bash
-# Option A: Using Docker Compose (auto-mounts figures and outputs back to host)
-docker-compose up --build
-
-# Option B: Using standard Docker CLI
+# 1. Build the Docker container image
 docker build -t cs612-eval-suite .
+
+# 2. Option A: Run Experiment C (Sycophancy) + PRISM Defense (Primary Deliverable)
+docker run --rm cs612-eval-suite c_and_prism
+
+# 3. Option B: Run the Complete Team Pipeline (All 4 Experiments + PRISM)
 docker run --rm cs612-eval-suite mock
+
+# 4. Option C: Using Docker Compose (auto-mounts figures and outputs back to host)
+docker-compose up --build
 ```
 
 ### 3.2 Native Local Installation
