@@ -1,0 +1,93 @@
+{
+  "table_13_neutrality_benchmark": [
+    {
+      "Model": "Llama-3.1-8B-Instruct (Western)",
+      "Family": "Western",
+      "N (F2)": 0.4,
+      "NCORE (Overall)": 0.55,
+      "Side-picking (overall)": "52%",
+      "Refusal": "1.9%"
+    },
+    {
+      "Model": "Gemma-3-12b-it (Western)",
+      "Family": "Western",
+      "N (F2)": 0.44,
+      "NCORE (Overall)": 0.69,
+      "Side-picking (overall)": "42%",
+      "Refusal": "0.0%"
+    },
+    {
+      "Model": "Qwen3-VL-8B-Instruct (Chinese)",
+      "Family": "Chinese",
+      "N (F2)": 0.42,
+      "NCORE (Overall)": 0.54,
+      "Side-picking (overall)": "45%",
+      "Refusal": "0.0%"
+    },
+    {
+      "Model": "GLM-4-9b-chat (Chinese)",
+      "Family": "Chinese",
+      "N (F2)": 0.35,
+      "NCORE (Overall)": 0.45,
+      "Side-picking (overall)": "55%",
+      "Refusal": "0.0%"
+    },
+    {
+      "Model": "Llama-SEA-LION-v3-8B-IT (SEA)",
+      "Family": "SEA",
+      "N (F2)": 0.42,
+      "NCORE (Overall)": 0.67,
+      "Side-picking (overall)": "46%",
+      "Refusal": "0.0%"
+    },
+    {
+      "Model": "Qwen-SEA-LION-v4-8B-VL (SEA)",
+      "Family": "SEA",
+      "N (F2)": 0.38,
+      "NCORE (Overall)": 0.5,
+      "Side-picking (overall)": "52%",
+      "Refusal": "0.0%"
+    },
+    {
+      "Model": "Llama3.1-typhoon2-8b-instruct (SEA)",
+      "Family": "SEA",
+      "N (F2)": 0.34,
+      "NCORE (Overall)": 0.42,
+      "Side-picking (overall)": "61%",
+      "Refusal": "0.0%"
+    }
+  ],
+  "table_14_research_questions": [
+    {
+      "RQ": "RQ1 Model differences",
+      "Statement": "Neutrality differs across the seven models",
+      "Supported": "Yes",
+      "Evidence": "Overall NCORE ranges 0.42\u20130.69; the gap between models grows from 0.16 (cued F1) to 0.66 (loaded premise F4)."
+    },
+    {
+      "RQ": "RQ2 Region \u00d7 family",
+      "Statement": "Region\u2013neutrality pattern differs by family",
+      "Supported": "No",
+      "Evidence": "Same regional profile for all families; none dips on its home region."
+    },
+    {
+      "RQ": "RQ3 Home-side lean",
+      "Statement": "Models favour their home claimant more than other families do",
+      "Supported": "Partly",
+      "Evidence": "Of side-picks, Chinese models back the PRC 38% vs 20\u201325% (wide interval); smaller for Western, none for SEA models."
+    },
+    {
+      "RQ": "RQ4 Lineage",
+      "Statement": "Regional post-training changes neutrality",
+      "Supported": "Partly",
+      "Evidence": "Small on the uncued prompt; large, opposite shifts under a loaded premise (+0.24, -0.33, -0.10)."
+    }
+  ],
+  "n_territories": 155,
+  "region_clusters": {
+    "china_implicated": 59,
+    "sea_implicated": 16,
+    "china_sea_overlap": 5,
+    "others": 75
+  }
+}
